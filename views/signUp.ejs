@@ -1,5 +1,18 @@
-<form action="/signup">
-  <label for="username">Username:</label>
-  <input type="text" id="username" name="username" />
+<form action="/signup" method="post">
+  <label for="userName">User Name:</label>
+  <input type="text" id="userName" name="userName" />
+  <label for="firstName">First Name:</label>
+  <input type="text" id="firstName" name="firstName" />
+  <label for="lastName">Last Name:</label>
+  <input type="text" id="lastName" name="lastName" />
+  <label for="password">Password:</label>
+  <input type="text" id="password" name="password" />
   <button type="submit">Submit</button>
 </form>
+<% if (locals.errors) {%>
+  <ul>
+    <% errors.forEach(function(error) { %>
+      <li><%= error.msg %></li>
+    <% }); %>
+  </ul>
+<% } %>
