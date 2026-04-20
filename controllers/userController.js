@@ -31,6 +31,25 @@ export async function registerUser(req, res, next) {
   }
 }
 
+//yet to build
+export async function membership(req, res, next) {
+  try {
+    const user = await prisma.user.update({
+      where: {
+        id: req.user.id,
+      },
+      data: {
+        membership: true,
+      },
+    });
+    console.log("success");
+    res.redirect("/");
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+}
+
 export const validateUser = [
   body("firstName")
     .trim()
@@ -49,6 +68,15 @@ export const validateUser = [
     .withMessage("Password must be at least 6 characters long"),
   body("confirmPassword").custom((value, { req }) => {
     if (value !== req.body.password) {
+      throw new Error("Passwords do not match");
+    }
+    return true;
+  }),
+];
+
+export const validateMembershipPassword = [
+  body("confirmPassword").custom((value, { req }) => {
+    if (value !== process.env.membership) {
       throw new Error("Passwords do not match");
     }
     return true;

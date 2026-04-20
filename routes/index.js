@@ -1,4 +1,5 @@
 import { Router } from "express";
+import passport from "passport";
 import {
   registerUser,
   getIndex,
@@ -9,7 +10,19 @@ import {
 const usersRouter = Router();
 
 usersRouter.get("/", getIndex);
-usersRouter.get("/signup", (req, res) => res.render("signUp"));
+usersRouter.get("/signup", (req, res) => {
+  console.log("Passport messages:", req.session.messages);
+  res.render("signUp");
+});
 usersRouter.post("/signup", validateUser, handleValidationErrors, registerUser);
+usersRouter.post("/membership", validateUser);
+usersRouter.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/signup",
+    failureMessage: true,
+  }),
+);
 
 export default usersRouter;
