@@ -13,7 +13,7 @@ export async function loginUser(req, res, next) {
     const user = await prisma.user.create({
       data: {
         userName: req.body.userName,
-        password: req.body.password, // später mit bcrypt!
+        password: req.body.password,
         firstName: req.body.firstName || null,
         lastName: req.body.lastName || null,
         membership: false,
@@ -52,5 +52,5 @@ export function handleValidationErrors(req, res, next) {
     });
   }
 
-  next(); // 👉 wichtig!
+  next();
 }
