@@ -1,6 +1,7 @@
+import "dotenv/config";
 import { prisma } from "../lib/prisma.js";
 import { body, validationResult, matchedData } from "express-validator";
-import "dotenv/config";
+import bcrypt from "bcryptjs";
 
 const alphaErr = "must only contain letters.";
 const lengthErr = "must be between 1 and 10 characters.";
@@ -12,10 +13,11 @@ export async function getIndex(req, res) {
 export async function loginUser(req, res, next) {
   try {
     console.log(process.env.DATABASE_URL);
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = await prisma.user.create({
       data: {
         userName: req.body.userName,
-        password: req.body.password,
+        password: hashedPassword,
         firstName: req.body.firstName || null,
         lastName: req.body.lastName || null,
         membership: false,
