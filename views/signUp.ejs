@@ -1,3 +1,5 @@
+<%- include('layout/header') %> <%- include('layout/navbar') %>
+
 <form action="/signup" method="post">
   <label for="userName">User Name:</label>
   <input type="text" id="userName" name="userName" />
@@ -6,9 +8,9 @@
   <label for="lastName">Last Name:</label>
   <input type="text" id="lastName" name="lastName" />
   <label for="password">Password:</label>
-  <input type="text" id="password" name="password" />
+  <input type="password" id="password" name="password" />
   <label for="confirmPassword">Confirm Password:</label>
-  <input type="text" id="confirmPassword" name="confirmPassword" />
+  <input type="password" id="confirmPassword" name="confirmPassword" />
   <button type="submit">Submit</button>
 </form>
 <% if (locals.errors) {%>
@@ -18,3 +20,5 @@
     <% }); %>
   </ul>
 <% } %>
+
+<%- include('layout/footer') %>

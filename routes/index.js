@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  loginUser,
+  registerUser,
   getIndex,
   validateUser,
   handleValidationErrors,
@@ -9,7 +9,7 @@ import {
 const usersRouter = Router();
 
 usersRouter.get("/", getIndex);
-//usersRouter.get("/signup", (req, res) => res.render("sign-up-form"));
-usersRouter.post("/signup", validateUser, handleValidationErrors, loginUser);
+usersRouter.get("/signup", (req, res) => res.render("signUp"));
+usersRouter.post("/signup", validateUser, handleValidationErrors, registerUser);
 
 export default usersRouter;

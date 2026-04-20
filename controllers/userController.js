@@ -7,10 +7,10 @@ const alphaErr = "must only contain letters.";
 const lengthErr = "must be between 1 and 10 characters.";
 
 export async function getIndex(req, res) {
-  res.render("layout", {});
+  res.render("login", {});
 }
 
-export async function loginUser(req, res, next) {
+export async function registerUser(req, res, next) {
   try {
     console.log(process.env.DATABASE_URL);
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
