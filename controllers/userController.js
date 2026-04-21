@@ -34,9 +34,10 @@ export async function registerUser(req, res, next) {
 //yet to build
 export async function membership(req, res, next) {
   try {
+    console.log();
     const user = await prisma.user.update({
       where: {
-        id: req.user.id,
+        id: res.locals.currentUser.id,
       },
       data: {
         membership: true,
@@ -75,9 +76,9 @@ export const validateUser = [
 ];
 
 export const validateMembershipPassword = [
-  body("confirmPassword").custom((value, { req }) => {
+  body("membershipPassword").custom((value, { req }) => {
     if (value !== process.env.membership) {
-      throw new Error("Passwords do not match");
+      throw new Error("Wrong Password!");
     }
     return true;
   }),
