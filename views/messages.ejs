@@ -1,0 +1,10 @@
+<%- include('layout/header') %> <%- include('layout/navbar') %> <%-
+include('post') %> 
+<% posts.forEach(post => { %>
+  <section>
+    <h2><%= post.title %></h2>
+    <p><%= post.text %></p>
+  </section>
+<% }) %>
+
+<%- include('layout/footer') %>

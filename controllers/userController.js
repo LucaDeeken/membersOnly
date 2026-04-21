@@ -34,7 +34,6 @@ export async function registerUser(req, res, next) {
 //yet to build
 export async function membership(req, res, next) {
   try {
-    console.log();
     const user = await prisma.user.update({
       where: {
         id: res.locals.currentUser.id,
@@ -45,6 +44,18 @@ export async function membership(req, res, next) {
     });
     console.log("success");
     res.redirect("/");
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+}
+
+export async function getAllPosts(req, res, next) {
+  try {
+    const posts = await prisma.post.findMany();
+    console.log("success");
+    console.log(posts);
+    res.render("messages", { posts });
   } catch (err) {
     console.error(err);
     next(err);

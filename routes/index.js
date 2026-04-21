@@ -7,6 +7,7 @@ import {
   handleValidationErrors,
   validateMembershipPassword,
   membership,
+  getAllPosts,
 } from "../controllers/userController.js";
 
 const usersRouter = Router();
@@ -14,10 +15,9 @@ const usersRouter = Router();
 usersRouter.get("/", getIndex);
 usersRouter.get("/login", getIndex);
 usersRouter.get("/signup", (req, res) => {
-  console.log("Passport messages:", req.session.messages);
-  console.log(res.locals.currentUser);
   res.render("signUp");
 });
+usersRouter.get("/messages", getAllPosts);
 usersRouter.get("/membership", (req, res) => {
   res.render("membership");
 });
