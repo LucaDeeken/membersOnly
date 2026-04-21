@@ -22,6 +22,11 @@ app.use(express.static(assetsPath));
 app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", indexRouter);
